@@ -27,7 +27,7 @@ class Gravatar
      *
      * @var string
      */
-    protected $_defaultImage = 'mm';
+    protected $_image = 'mm';
 
     /**
      * Ratings
@@ -51,25 +51,6 @@ class Gravatar
      * @var string
      */
     protected $_url = '';
-
-    /**
-     * Constructor
-     *
-     */
-    public function __construct() { }
-
-    /**
-     * Set user email
-     *
-     * @param  string $email
-     * @return Gravatarer $this
-     */
-    public function user( $email )
-    {
-        $this->_email = $email;
-        $this->_url = $this->make()->url();
-        return $this;
-    }
 
     /**
      * Set size of avatar
@@ -104,13 +85,13 @@ class Gravatar
      * Set defaut avatar image
      * Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
      *
-     * @param string $defaultImage
+     * @param string $image
      * @return Gravatarer $this
      * @internal param string $size
      */
-    public function defaultImage( $defaultImage = 'mm')
+    public function image( $image = 'mm')
     {
-        $this->_defaultImage = $defaultImage;
+        $this->_image = $image;
         $this->_url = $this->make()->url();
         return $this;
     }
@@ -144,7 +125,7 @@ class Gravatar
         {
             if ( isset($params['email']) ) $this->_email = $params['email'];
             if ( isset($params['size']) ) $this->_size = $params['size'];
-            if ( isset($params['defaultImage']) ) $this->_defaultImage = $params['defaultImage'];
+            if ( isset($params['image']) ) $this->_image = $params['image'];
             if ( isset($params['rating']) ) $this->_rating = $params['rating'];
             if ( isset($params['secured']) ) $this->_secured = $params['secured'];
         }
@@ -156,7 +137,7 @@ class Gravatar
         // create gravatar url
         $url = $this->getBaseUrl();
         $url .= md5( strtolower( trim( $this->_email ) ) );
-        $url .= "?s=".$this->_size."&d=".$this->_defaultImage."&r=".$this->_rating;
+        $url .= "?s=".$this->_size."&d=".$this->_image."&r=".$this->_rating;
         // save created gravatar url
         $this->_url = $url;
         // return url
